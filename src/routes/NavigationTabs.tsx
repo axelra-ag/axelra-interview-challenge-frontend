@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { __COLORS } from "../layout/Theme";
 import MyIcon, { IconTypes } from "../views/Icon";
 import { EXTRA_SMALL_DEVICES } from "../layout/Mobile";
-import { PICTURES, REDUX, TYPOGRAPHY } from "./Routes";
+import {CHALLENGE} from "./Routes";
 
 const Container = styled.div`
   display: flex;
@@ -58,24 +58,10 @@ NavigationLink.defaultProps = {
 const NavigationTabs = () => {
   return (
     <Container>
-      <NavigationLink to={TYPOGRAPHY}>
+      <NavigationLink to={CHALLENGE}>
         <IconContainer>
           <MyIcon name={IconTypes.TYPOGRAPHY} color={__COLORS.PRIMARY} />
-          <Title>Typography</Title>
-        </IconContainer>
-      </NavigationLink>
-
-      <NavigationLink to={REDUX}>
-        <IconContainer>
-          <MyIcon name={IconTypes.REDUX} color={__COLORS.PRIMARY} />
-          <Title>Redux</Title>
-        </IconContainer>
-      </NavigationLink>
-
-      <NavigationLink to={PICTURES}>
-        <IconContainer>
-          <MyIcon name={IconTypes.PICTURE} color={__COLORS.PRIMARY} />
-          <Title>Pictures</Title>
+          <Title>Challenge</Title>
         </IconContainer>
       </NavigationLink>
     </Container>

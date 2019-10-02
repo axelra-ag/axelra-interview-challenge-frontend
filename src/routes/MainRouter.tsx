@@ -7,12 +7,10 @@ import {
   Redirect
 } from "react-router-dom";
 import Typography from "../components/Typography";
-import ReduxExample from "../components/ReduxExample";
 import NavigationTabs from "./NavigationTabs";
 import { __GRAY_SCALE } from "../layout/Theme";
-import Pictures from "../components/Pictures";
 import { EXTRA_SMALL_DEVICES, LARGE_DEVICES } from "../layout/Mobile";
-import {PICTURES, REDUX, TYPOGRAPHY} from "./Routes";
+import {CHALLENGE} from "./Routes";
 
 const Container = styled.div``;
 
@@ -42,17 +40,16 @@ const MainRouter = () => {
           <Switch>
             <Route
               component={Typography}
-              path={TYPOGRAPHY}
+              path={CHALLENGE}
               exact
             />
-            <Route component={ReduxExample} path={REDUX} exact />
-            <Route component={Pictures} path={PICTURES} exact />
+
             {/*Intentionally left at the bottom*/}
             <Route
               exact
               path={"/*"}
               render={() => {
-                return <Redirect to={TYPOGRAPHY} />;
+                return <Redirect to={CHALLENGE} />;
               }}
             />
           </Switch>
