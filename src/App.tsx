@@ -33,10 +33,21 @@ const Logo = styled(MyImage)`
 `;
 
 const App: React.FC = () => {
+  fetch(`http://localhost:3001/hello`)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   return (
     <Container>
       <Header>
-        <Logo source={'https://files.axelra.com/logo.png'} assetType={AssetType.URL} />
+        <Logo
+          source={"https://files.axelra.com/logo.png"}
+          assetType={AssetType.URL}
+        />
         <AppTitle>Have fun with React :-)</AppTitle>
       </Header>
       <MainRouter />
