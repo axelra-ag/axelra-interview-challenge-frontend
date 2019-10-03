@@ -1,6 +1,22 @@
 # Axelra Challenge
+![](https://files.axelra.com/logo.png)
+## Task description
 
-## Welcome :)
+Implement a simple version of Trello with two simple boards.
+One board should contain a list of "In Progress" tasks and the other one should have a list of "Done" tasks.
+The main idea consists of having each list (and the corresponding elements) stored in the MongoDB. You will receive the connection string from Axelra directly. 
+On the front-end side you can use whatever libraries you need.
+
+### User Stories
+- As a user I want to be able to create a new task with its description and label ("In Progress" / "Done").
+- As a user I want to be able to move a certain tasks into another list 
+- As a user I want to be able to remove a specific task from a specific list 
+
+## General notes
+- Feel free to experiment within this stack and let your creativity run freely.
+- Use Typescript and follow the style conventions (e.g. stick to `styled-components`).
+- Feel free to ask questions at every time. 
+# Installation Guidelines
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -12,10 +28,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Redux and Redux Thunk and Redux Middleware extension
 - gh-pages (for deployment)
 
-## Deployment
-This React Template is meant to be deployed to Netlify. 
-Connect your GitHub app with netlify and allow continuous integration. 
-> https://lucky-react-starter.netlify.com
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -52,6 +65,12 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Deployment
+####!! You don't need to deploy your app in order to complete the challenge. 
+But in case you want..this React Template is meant to be deployed to Netlify. 
+Connect your GitHub app with netlify and allow continuous integration. 
+> Example: https://lucky-react-starter.netlify.com
 
 ## Learn More
 

@@ -13,10 +13,10 @@ export const MainTheme: CSSProperties & Props = {
 
 // Colors Palette https://colorhunt.co/
 export enum __COLORS {
-  PRIMARY = "#f38181",
-  SECONDARY = "#fce38a",
-  TERTRIARY = "#eaffd0",
-  FOURTH = "#95e1d3",
+  PRIMARY = "#1a2849",
+  SECONDARY = "#505bda",
+  TERTRIARY = "#b063c5",
+  FOURTH = "#ffaac3",
   WHITE = "#fff",
   BLACK = "#000"
 }

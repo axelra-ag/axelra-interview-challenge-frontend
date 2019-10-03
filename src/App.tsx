@@ -10,7 +10,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  animation: ${BounceIn} 1s both;
 `;
 
 const Header = styled.header`
@@ -48,7 +47,6 @@ const App: React.FC = () => {
           source={"https://files.axelra.com/logo.png"}
           assetType={AssetType.URL}
         />
-        <AppTitle>Have fun with React :-)</AppTitle>
       </Header>
       <MainRouter />
     </Container>

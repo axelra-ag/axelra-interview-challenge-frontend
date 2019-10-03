@@ -6,7 +6,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import Typography from "../components/Typography";
+import AxelraTrello from "../components/AxelraTrello";
 import NavigationTabs from "./NavigationTabs";
 import { __GRAY_SCALE } from "../layout/Theme";
 import { EXTRA_SMALL_DEVICES, LARGE_DEVICES } from "../layout/Mobile";
@@ -18,10 +18,7 @@ const RoutesContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2em 0;
-  min-height: 300px;
-  border: 1px solid ${__GRAY_SCALE._200};
   border-radius: 5px;
-  width: 500px;
   padding: 2rem;
   ${EXTRA_SMALL_DEVICES`
    width: 260px;
@@ -35,11 +32,11 @@ const MainRouter = () => {
   return (
     <Container>
       <Router>
-        <NavigationTabs />
+       {/* <NavigationTabs />*/}
         <RoutesContainer>
           <Switch>
             <Route
-              component={Typography}
+              component={AxelraTrello}
               path={CHALLENGE}
               exact
             />
