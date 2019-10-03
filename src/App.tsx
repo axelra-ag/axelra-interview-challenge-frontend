@@ -18,13 +18,6 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
 `;
-
-const AppTitle = styled.h1`
-  color: ${__COLORS.PRIMARY};
-  font-weight: 100;
-  font-size: calc(18px + 2vmin);
-`;
-
 const Logo = styled(MyImage)`
   max-width: 100%;
   height: auto;
@@ -32,14 +25,6 @@ const Logo = styled(MyImage)`
 `;
 
 const App: React.FC = () => {
-  fetch(`http://localhost:3001/hello`)
-    .then(response => response.json())
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.error(error);
-    });
   return (
     <Container>
       <Header>

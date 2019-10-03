@@ -1,10 +1,9 @@
 export const getDomain = () => {
   if (isProduction()) {
     // TODO: insert prod url
-    return "https://jsonplaceholder.typicode.com";
+    return "";
   }
-  // TODO: change this with localhost
-  return "https://jsonplaceholder.typicode.com";
+  return "http://localhost:3001";
 };
 
 const isProduction = () => {

@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import styled from "styled-components";
 import { __ALERTS, __COLORS, __GRAY_SCALE } from "../layout/Theme";
+import { getDomain } from "../helpers/Domain";
+import { HTTP_OPTIONS, PROTOCOL_METHOD } from "../helpers/FetchOptions";
 
 const Container = styled.div`
   border: 1px solid ${__GRAY_SCALE._200};
@@ -34,51 +36,60 @@ const Color = styled.div<{ background: __COLORS | __GRAY_SCALE | __ALERTS }>`
   background: ${props => props.background};
 `;
 
-class AxelraTrello extends Component<Props, State> {
-  state = {};
+export const AxelraTrello = () => {
+  const [response, setResponse] = useState(null);
 
-  componentDidMount() {}
-
-  render() {
-    return (
-      <>
-        <Title>Axelra Trello Challenge</Title>
-        <Container>
-          <h1>Heading H1</h1>
-          <h2>Heading H2</h2>
-          <h3>Heading H3</h3>
-          <h4>Heading H4</h4>
-          <h5>Heading H5</h5>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries,{" "}
-          </p>
-          <h2>Colors Palette </h2>
-          <Colors>
-            <Color background={__COLORS.PRIMARY} />
-            <Color background={__COLORS.SECONDARY} />
-            <Color background={__COLORS.TERTRIARY} />
-            <Color background={__COLORS.FOURTH} />
-          </Colors>
-          <h2>Gray Scale</h2>
-          <Colors>
-            <Color background={__GRAY_SCALE._100} />
-            <Color background={__GRAY_SCALE._200} />
-            <Color background={__GRAY_SCALE._300} />
-            <Color background={__GRAY_SCALE._400} />
-            <Color background={__GRAY_SCALE._500} />
-            <Color background={__GRAY_SCALE._600} />
-            <Color background={__GRAY_SCALE._700} />
-            <Color background={__GRAY_SCALE._800} />
-            <Color background={__GRAY_SCALE._900} />
-          </Colors>
-        </Container>
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    fetch(`${getDomain()}/hello`, HTTP_OPTIONS(PROTOCOL_METHOD.GET))
+      .then(response => response.json())
+      .then(response => {
+        if (response.success) {
+          setResponse(response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+  }, []);
+  return (
+    <>
+      <Title>Axelra Trello Challenge</Title>
+      {response ? <p>{response}</p> : <p>Loading...</p>}
+      <Container>
+        <h1>Heading H1</h1>
+        <h2>Heading H2</h2>
+        <h3>Heading H3</h3>
+        <h4>Heading H4</h4>
+        <h5>Heading H5</h5>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries,{" "}
+        </p>
+        <h2>Colors Palette </h2>
+        <Colors>
+          <Color background={__COLORS.PRIMARY} />
+          <Color background={__COLORS.SECONDARY} />
+          <Color background={__COLORS.TERTRIARY} />
+          <Color background={__COLORS.FOURTH} />
+        </Colors>
+        <h2>Gray Scale</h2>
+        <Colors>
+          <Color background={__GRAY_SCALE._100} />
+          <Color background={__GRAY_SCALE._200} />
+          <Color background={__GRAY_SCALE._300} />
+          <Color background={__GRAY_SCALE._400} />
+          <Color background={__GRAY_SCALE._500} />
+          <Color background={__GRAY_SCALE._600} />
+          <Color background={__GRAY_SCALE._700} />
+          <Color background={__GRAY_SCALE._800} />
+          <Color background={__GRAY_SCALE._900} />
+        </Colors>
+      </Container>
+    </>
+  );
+};
 
 export default AxelraTrello;
