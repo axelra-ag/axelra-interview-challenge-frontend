@@ -10,9 +10,6 @@ const Container = styled.div`
   border-radius: 6px;
 `;
 
-type State = {};
-type Props = {};
-
 const Colors = styled.div`
   display: flex;
   flex-wrap: wrap;

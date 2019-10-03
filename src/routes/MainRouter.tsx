@@ -7,8 +7,6 @@ import {
   Redirect
 } from "react-router-dom";
 import AxelraTrello from "../components/AxelraTrello";
-import NavigationTabs from "./NavigationTabs";
-import { __GRAY_SCALE } from "../layout/Theme";
 import { EXTRA_SMALL_DEVICES, LARGE_DEVICES } from "../layout/Mobile";
 import {CHALLENGE} from "./Routes";
 
