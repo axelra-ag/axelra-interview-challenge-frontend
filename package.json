@@ -10,6 +10,7 @@
     "@types/react-dom": "16.8.4",
     "@types/react-redux": "^7.0.8",
     "@types/react-router-dom": "^4.3.2",
+    "@types/shortid": "0.0.29",
     "@types/styled-components": "^4.1.14",
     "color": "^3.1.1",
     "react": "^16.10.1",
@@ -20,6 +21,7 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "latest",
     "redux-thunk": "^2.3.0",
+    "shortid": "^2.2.15",
     "styled-components": "^4.2.0",
     "typescript": "3.4.5"
   },
