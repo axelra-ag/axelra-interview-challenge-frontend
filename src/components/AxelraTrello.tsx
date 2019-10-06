@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { __GRAY_SCALE } from "../layout/Theme";
 import { getDomain } from "../helpers/Domain";
 import { HTTP_OPTIONS, PROTOCOL_METHOD } from "../helpers/FetchOptions";
-import { Todo, ToggleTodo, AddTodo, TodoAdd } from "../model/Todo"
+import { Todo, ToggleTodo, AddTodo, TodoAdd, DeleteTodo } from "../model/Todo"
 import { TodoList } from "./TodoList"
 import { AddTodoForm } from "./AddTodoForm"
 
@@ -49,6 +49,20 @@ export const AxelraTrello = () => {
     fetchListItems();
   }
 
+  const deleteTodo: DeleteTodo = todoid => {
+    fetch(`${getDomain()}/deletetodo/${todoid}`, { ...HTTP_OPTIONS(PROTOCOL_METHOD.DELETE), body: todoid })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.success) {
+          console.error(response);
+        }
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+    fetchListItems();
+  }
+
   const sendAddTodo = (newTodo: Todo) => {
 
   }
@@ -75,7 +89,7 @@ export const AxelraTrello = () => {
           <Container>
             <h1>In Progress</h1>
             <React.Fragment>
-              <TodoList todos={todos} toggleTodo={toggleTodo} />
+              <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
               <AddTodoForm addTodo={addTodo} />
             </React.Fragment>
           </Container> :

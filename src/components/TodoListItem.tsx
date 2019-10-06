@@ -1,15 +1,22 @@
-import React from 'react';
-import { Todo, ToggleTodo } from '../model/Todo'
+import React, { FormEvent } from "react";
+import { Todo, ToggleTodo, DeleteTodo } from '../model/Todo'
 
 interface TodoListItemProps {
     todo: Todo;
     toggleTodo: ToggleTodo;
+    deleteTodo: DeleteTodo;
 }
 
 export const TodoListItem: React.FC<TodoListItemProps> = ({
     todo,
-    toggleTodo
+    toggleTodo,
+    deleteTodo
 }) => {
+    const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        deleteTodo(todo._id);
+    };
+
     return (
         <li>
             <label
@@ -20,6 +27,9 @@ export const TodoListItem: React.FC<TodoListItemProps> = ({
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo)}
                 />
+                &emsp;&emsp;
+                <button type="submit" onClick={handleSubmit}>Delete Item</button>
+                &emsp;&emsp;
                 {todo.title}
             </label>
         </li>
