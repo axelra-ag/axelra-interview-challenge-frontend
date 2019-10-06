@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { __GRAY_SCALE } from "../layout/Theme";
 import { getDomain } from "../helpers/Domain";
 import { HTTP_OPTIONS, PROTOCOL_METHOD } from "../helpers/FetchOptions";
-import { Todo, ToggleTodo, AddTodo } from "../model/Todo"
+import { Todo, ToggleTodo, AddTodo, TodoAdd } from "../model/Todo"
 import { TodoList } from "./TodoList"
 import { AddTodoForm } from "./AddTodoForm"
-import shortid from "shortid"
 
 const Container = styled.div`
   border: 1px solid ${__GRAY_SCALE._200};
@@ -18,23 +17,10 @@ const Title = styled.h1`
   font-size: 32px;
 `;
 
-const initalTodos: Array<Todo> = [{
-  userId: "manuelgr",
-  id: "1",
-  title: "test1",
-  completed: false,
-},
-{
-  userId: "manuelgr",
-  id: "2",
-  title: "test2",
-  completed: true,
-}];
-
 export const AxelraTrello = () => {
-  const [response, setResponse] = useState(null);
+  const TodoArray: Array<Todo> = [];
 
-  const [todos, setTodos] = useState(initalTodos);
+  const [todos, setTodos] = useState<Array<Todo>>(TodoArray);
 
   const toggleTodo: ToggleTodo = selectedTodo => {
     const newTodos = todos.map(todo => {
@@ -50,32 +36,51 @@ export const AxelraTrello = () => {
   }
 
   const addTodo: AddTodo = newTodo => {
-    newTodo.trim() !== "" &&
-      setTodos([...todos, { userId: "manuelgr", id: shortid.generate(), title: newTodo, completed: false }]);
-  }
-
-  useEffect(() => {
-    fetch(`${getDomain()}/hello`, HTTP_OPTIONS(PROTOCOL_METHOD.GET))
+    fetch(`${getDomain()}/addtodo`, { ...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(newTodo) })
       .then(response => response.json())
       .then(response => {
-        if (response.success) {
-          setResponse(response.data.message);
+        if (!response.success) {
+          console.error(response);
         }
       })
       .catch(error => {
         console.error("Some error occured", error);
       });
-  }, []);
+    fetchListItems();
+  }
+
+  const sendAddTodo = (newTodo: Todo) => {
+
+  }
+
+  const fetchListItems = () => {
+    fetch(`${getDomain()}/getalltodos`, HTTP_OPTIONS(PROTOCOL_METHOD.GET))
+      .then(response => response.json())
+      .then(response => {
+        if (response.success) {
+          setTodos(response.data.dbQueryResult);
+        }
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+  }
+
+  useEffect(fetchListItems, []);
   return (
     <>
       <Title>Axelra Trello Challenge</Title>
-      {response ? <p>{response}</p> : <p>Loading...</p>}
-      <Container>
-        <React.Fragment>
-          <TodoList todos={todos} toggleTodo={toggleTodo} />
-          <AddTodoForm addTodo={addTodo} />
-        </React.Fragment>
-      </Container>
+      {
+        todos.length ?
+          <Container>
+            <h1>In Progress</h1>
+            <React.Fragment>
+              <TodoList todos={todos} toggleTodo={toggleTodo} />
+              <AddTodoForm addTodo={addTodo} />
+            </React.Fragment>
+          </Container> :
+          <p>Loading...</p>
+      }
     </>
   );
 };
