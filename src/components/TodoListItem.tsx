@@ -1,19 +1,36 @@
 import React, { FormEvent } from "react";
 import { Todo, ToggleTodo, DeleteTodo, ChangeStatus } from '../model/Todo'
+import styled from "styled-components";
 
 interface TodoListItemProps {
     todo: Todo;
     toggleTodo: ToggleTodo;
     deleteTodo: DeleteTodo;
     changeStatus: ChangeStatus;
-    todoscompleted: boolean;
 }
+
+const DeleteButton = styled.button`
+    background-image: url('https://cdn2.iconfinder.com/data/icons/round-interface-1/217/50-512.png');
+    background-size: 16px 16px;
+    height: 16px;  
+    width: 16px;
+    border-radius: 50%;
+    border: 0;
+`;
+
+const ChangeButtonUpDown = styled.button`
+    background-image: url('https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/arrow-up-down-2-512.png');
+    background-size: 16px 16px;
+    height: 16px;  
+    width: 16px;
+    border-radius: 50%;
+    border: 0;
+`;
 
 export const TodoListItem: React.FC<TodoListItemProps> = ({
     todo,
     deleteTodo,
     changeStatus,
-    todoscompleted,
 }) => {
     const handleSubmitChange = (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -25,15 +42,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = ({
         deleteTodo(todo._id);
     };
 
-    const changeButtonText = todoscompleted ? "Change to In Progress" : "Change to Completed";
-
     return (
         <li>
             <label>
-                <button type="submit" onClick={handleSubmitChange}>{changeButtonText}</button>
-                &emsp;&emsp;
-                <button type="submit" onClick={handleSubmitDelete}>Delete Item</button>
-                &emsp;&emsp;
+                <ChangeButtonUpDown type="submit" onClick={handleSubmitChange}></ChangeButtonUpDown>
+                &emsp;
+                <DeleteButton type="submit" onClick={handleSubmitDelete}></DeleteButton>
+                &emsp;
                 {todo.title}
             </label>
         </li>

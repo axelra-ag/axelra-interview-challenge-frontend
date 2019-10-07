@@ -72,13 +72,13 @@ export const AxelraTrello = () => {
         if (!response.success) {
           console.error(response);
         }
-        let index = todos.findIndex(todo => todo._id === todoid);
-        todos[index].completed = !todos[index].completed;
-        setTodos([...todos]);
       })
       .catch(error => {
         console.error("Some error occured", error);
       });
+    let index = todos.findIndex(todo => todo._id === todoid);
+    todos[index].completed = !todos[index].completed;
+    setTodos([...todos]);
   }
 
   const fetchListItems = () => {

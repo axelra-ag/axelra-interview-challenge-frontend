@@ -36,7 +36,6 @@ export const TodoList: React.FC<TodoListProps> = ({
                     toggleTodo={toggleTodo}
                     deleteTodo={deleteTodo}
                     changeStatus={changeStatus}
-                    todoscompleted={todoscompleted}
                 />
             })}
     </TodoUnorderedList>
