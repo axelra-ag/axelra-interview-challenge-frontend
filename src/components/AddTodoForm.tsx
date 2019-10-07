@@ -1,9 +1,14 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { AddTodo } from "../model/Todo";
+import styled from "styled-components";
 
 interface AddTodoFormProps {
     addTodo: AddTodo;
 }
+
+const CenteredDiv = styled.div`
+    text-align: center;
+    `;
 
 export const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
     const [newTodo, setNewTodo] = useState<string>("");
@@ -22,8 +27,10 @@ export const AddTodoForm: React.FC<AddTodoFormProps> = ({ addTodo }) => {
         setNewTodo("");
     };
 
-    return <form>
-        <input type="text" value={newTodo} onChange={handleChange} />
-        <button type="submit" onClick={handleSubmit}>Add Todo</button>
-    </form>
+    return <CenteredDiv>
+        <form>
+            <input type="text" value={newTodo} onChange={handleChange} />
+            <button type="submit" onClick={handleSubmit}>Add Todo</button>
+        </form>
+    </CenteredDiv>
 }
