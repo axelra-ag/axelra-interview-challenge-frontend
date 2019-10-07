@@ -105,7 +105,7 @@ export const AxelraTrello = () => {
                   toggleTodo={toggleTodo}
                   deleteTodo={deleteTodo}
                   changeStatus={changeStatus}
-                  todoscompleted={true}
+                  todoscompleted={false}
                 />
                 <AddTodoForm addTodo={addTodo} />
               </React.Fragment>
@@ -118,7 +118,7 @@ export const AxelraTrello = () => {
                   toggleTodo={toggleTodo}
                   deleteTodo={deleteTodo}
                   changeStatus={changeStatus}
-                  todoscompleted={false}
+                  todoscompleted={true}
                 />
               </React.Fragment>
             </Container>
