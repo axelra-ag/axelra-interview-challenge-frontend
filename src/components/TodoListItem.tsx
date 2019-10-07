@@ -1,18 +1,24 @@
 import React, { FormEvent } from "react";
-import { Todo, ToggleTodo, DeleteTodo } from '../model/Todo'
+import { Todo, ToggleTodo, DeleteTodo, ChangeStatus } from '../model/Todo'
 
 interface TodoListItemProps {
     todo: Todo;
     toggleTodo: ToggleTodo;
     deleteTodo: DeleteTodo;
+    changeStatus: ChangeStatus;
 }
 
 export const TodoListItem: React.FC<TodoListItemProps> = ({
     todo,
-    toggleTodo,
-    deleteTodo
+    deleteTodo,
+    changeStatus,
 }) => {
-    const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+    const handleSubmitChange = (e: FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        changeStatus(todo._id);
+    };
+
+    const handleSubmitDelete = (e: FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
         deleteTodo(todo._id);
     };
@@ -22,13 +28,9 @@ export const TodoListItem: React.FC<TodoListItemProps> = ({
             <label
                 style={{ textDecoration: todo.completed ? "line-through" : "none" }}
             >
-                <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => toggleTodo(todo)}
-                />
+                <button type="submit" onClick={handleSubmitChange}>Change Status</button>
                 &emsp;&emsp;
-                <button type="submit" onClick={handleSubmit}>Delete Item</button>
+                <button type="submit" onClick={handleSubmitDelete}>Delete Item</button>
                 &emsp;&emsp;
                 {todo.title}
             </label>

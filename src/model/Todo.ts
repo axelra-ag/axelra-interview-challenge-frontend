@@ -15,3 +15,4 @@ export type TodoAdd = {
 export type ToggleTodo = (selectedTodo: Todo) => void;
 export type AddTodo = (newTodo: TodoAdd) => void;
 export type DeleteTodo = (todoId: string) => void;
+export type ChangeStatus = (todoId: string) => void;
