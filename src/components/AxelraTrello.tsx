@@ -96,18 +96,33 @@ export const AxelraTrello = () => {
       <Title>Axelra Trello Challenge</Title>
       {
         todos.length ?
-          <Container>
-            <h1>In Progress</h1>
-            <React.Fragment>
-              <TodoList
-                todos={todos}
-                toggleTodo={toggleTodo}
-                deleteTodo={deleteTodo}
-                changeStatus={changeStatus}
-              />
-              <AddTodoForm addTodo={addTodo} />
-            </React.Fragment>
-          </Container> :
+          <div>
+            <Container>
+              <h1>In Progress</h1>
+              <React.Fragment>
+                <TodoList
+                  todos={todos}
+                  toggleTodo={toggleTodo}
+                  deleteTodo={deleteTodo}
+                  changeStatus={changeStatus}
+                  todoscompleted={true}
+                />
+                <AddTodoForm addTodo={addTodo} />
+              </React.Fragment>
+            </Container>
+            <Container>
+              <h1>Done</h1>
+              <React.Fragment>
+                <TodoList
+                  todos={todos}
+                  toggleTodo={toggleTodo}
+                  deleteTodo={deleteTodo}
+                  changeStatus={changeStatus}
+                  todoscompleted={false}
+                />
+              </React.Fragment>
+            </Container>
+          </div> :
           <p>Loading...</p>
       }
     </>

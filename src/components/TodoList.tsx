@@ -7,18 +7,28 @@ interface TodoListProps {
     toggleTodo: ToggleTodo;
     deleteTodo: DeleteTodo;
     changeStatus: ChangeStatus;
+    todoscompleted: boolean;
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, changeStatus }) => {
+export const TodoList: React.FC<TodoListProps> = ({
+    todos,
+    toggleTodo,
+    deleteTodo,
+    changeStatus,
+    todoscompleted
+}) => {
     return <ul>
         {todos.map(todo => {
-            return <TodoListItem
-                key={todo._id}
-                todo={todo}
-                toggleTodo={toggleTodo}
-                deleteTodo={deleteTodo}
-                changeStatus={changeStatus}
-            />
+            if (todo.completed === todoscompleted) {
+                return <TodoListItem
+                    key={todo._id}
+                    todo={todo}
+                    toggleTodo={toggleTodo}
+                    deleteTodo={deleteTodo}
+                    changeStatus={changeStatus}
+                    todoscompleted={todoscompleted}
+                />
+            }
         })}
     </ul>
 }
