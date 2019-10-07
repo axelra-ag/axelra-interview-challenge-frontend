@@ -43,10 +43,7 @@ export const AxelraTrello = () => {
         if (!response.success) {
           console.error(response);
         }
-        setTodos([...todos, {
-          ...newTodo,
-          _id: response.data.dbQueryResult.insertedId
-        }]);
+        fetchListItems();
       })
       .catch(error => {
         console.error("Some error occured", error);
