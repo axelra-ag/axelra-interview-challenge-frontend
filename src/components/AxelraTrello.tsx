@@ -42,8 +42,11 @@ export const AxelraTrello = () => {
         if (!response.success) {
           console.error(response);
         }
+        setTodos([...todos, {
+          ...newTodo,
+          _id: response.data.dbQueryResult.insertedId
+        }]);
       })
-      .then(() => fetchListItems())
       .catch(error => {
         console.error("Some error occured", error);
       });
@@ -57,10 +60,12 @@ export const AxelraTrello = () => {
           console.error(response);
         }
       })
-      .then(() => fetchListItems())
       .catch(error => {
         console.error("Some error occured", error);
       });
+    setTodos(
+      todos.splice(todos.findIndex(todo => todo._id === todoid))
+    );
   }
 
   const changeStatus: ChangeStatus = todoid => {
@@ -70,8 +75,10 @@ export const AxelraTrello = () => {
         if (!response.success) {
           console.error(response);
         }
+        let index = todos.findIndex(todo => todo._id === todoid);
+        todos[index].completed = !todos[index].completed;
+        setTodos([...todos]);
       })
-      .then(() => fetchListItems())
       .catch(error => {
         console.error("Some error occured", error);
       });
