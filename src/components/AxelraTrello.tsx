@@ -20,6 +20,7 @@ const Title = styled.h1`
 export const AxelraTrello = () => {
   const TodoArray: Array<Todo> = [];
 
+  const [initalFetchComplete, setInitalFetchComplete] = useState<boolean>(false);
   const [todos, setTodos] = useState<Array<Todo>>(TodoArray);
 
   const toggleTodo: ToggleTodo = selectedTodo => {
@@ -63,9 +64,8 @@ export const AxelraTrello = () => {
       .catch(error => {
         console.error("Some error occured", error);
       });
-    setTodos(
-      todos.splice(todos.findIndex(todo => todo._id === todoid))
-    );
+    todos.splice(todos.findIndex(todo => todo._id === todoid), 1)
+    setTodos([...todos]);
   }
 
   const changeStatus: ChangeStatus = todoid => {
@@ -90,6 +90,7 @@ export const AxelraTrello = () => {
       .then(response => {
         if (response.success) {
           setTodos(response.data.dbQueryResult);
+          setInitalFetchComplete(true);
         }
       })
       .catch(error => {
@@ -102,7 +103,7 @@ export const AxelraTrello = () => {
     <>
       <Title>Axelra Trello Challenge</Title>
       {
-        todos.length ?
+        initalFetchComplete ?
           <div>
             <Container>
               <h1>In Progress</h1>
