@@ -4,8 +4,8 @@
 
 Implement a simple version of Trello with two simple boards.
 One board should contain a list of "In Progress" tasks and the other one should have a list of "Done" tasks.
-The main idea consists of having each list (and the corresponding elements) stored in the MongoDB. You will receive the connection string from Axelra directly. 
-On the front-end side you can use whatever libraries you need.
+The main idea consists of having each list (and the corresponding elements) stored in a MongoDB of a simple backend or to use redux store and local storage in a nice and clean way.
+You can use whatever libraries you need.
 
 ### User Stories
 - As a user I want to be able to create a new task with its description and label ("In Progress" / "Done").
