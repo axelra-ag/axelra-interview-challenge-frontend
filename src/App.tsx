@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { __COLORS } from "./layout/Theme";
 import MyImage, { AssetType } from "./views/Figure";
 import MainRouter from "./routes/MainRouter";
-import { BounceIn } from "./layout/UI/Animations/BounceIn";
 
 const Container = styled.div`
   display: flex;

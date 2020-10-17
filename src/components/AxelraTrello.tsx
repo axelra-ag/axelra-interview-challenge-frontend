@@ -1,8 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { __ALERTS, __COLORS, __GRAY_SCALE } from "../layout/Theme";
+import { __GRAY_SCALE } from "../layout/Theme";
 import { getDomain } from "../helpers/Domain";
 import { HTTP_OPTIONS, PROTOCOL_METHOD } from "../helpers/FetchOptions";
+import { Todo, ToggleTodo, AddTodo, DeleteTodo, ChangeStatus } from "../model/Todo"
+import { TodoList } from "./TodoList"
+import { AddTodoForm } from "./AddTodoForm"
 
 const Container = styled.div`
   border: 1px solid ${__GRAY_SCALE._200};
@@ -10,81 +13,123 @@ const Container = styled.div`
   border-radius: 6px;
 `;
 
-const Colors = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
 const Title = styled.h1`
   font-size: 32px;
 `;
 
-const Color = styled.div<{ background: __COLORS | __GRAY_SCALE | __ALERTS }>`
-  &:first-of-type {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-  &:last-of-type {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  padding: 1.2rem;
-  flex: 1;
-  background: ${props => props.background};
-`;
-
 export const AxelraTrello = () => {
-  const [response, setResponse] = useState(null);
+  const TodoArray: Array<Todo> = [];
 
-  useEffect(() => {
-    fetch(`${getDomain()}/hello`, HTTP_OPTIONS(PROTOCOL_METHOD.GET))
+  const [initalFetchComplete, setInitalFetchComplete] = useState<boolean>(false);
+  const [todos, setTodos] = useState<Array<Todo>>(TodoArray);
+
+  const toggleTodo: ToggleTodo = selectedTodo => {
+    const newTodos = todos.map(todo => {
+      if (todo === selectedTodo) {
+        return {
+          ...todo,
+          completed: !todo.completed
+        }
+      }
+      return todo;
+    })
+    setTodos(newTodos);
+  }
+
+  const addTodo: AddTodo = newTodo => {
+    fetch(`${getDomain()}/addtodo`, { ...HTTP_OPTIONS(PROTOCOL_METHOD.POST), body: JSON.stringify(newTodo) })
       .then(response => response.json())
       .then(response => {
-        if (response.success) {
-          setResponse(response.data.message);
+        if (!response.success) {
+          console.error(response);
+        }
+        fetchListItems();
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+  }
+
+  const deleteTodo: DeleteTodo = todoid => {
+    fetch(`${getDomain()}/deletetodo`, { ...HTTP_OPTIONS(PROTOCOL_METHOD.DELETE), body: todoid })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.success) {
+          console.error(response);
         }
       })
       .catch(error => {
         console.error("Some error occured", error);
       });
-  }, []);
+    todos.splice(todos.findIndex(todo => todo._id === todoid), 1)
+    setTodos([...todos]);
+  }
+
+  const changeStatus: ChangeStatus = todoid => {
+    fetch(`${getDomain()}/changestatus`, { ...HTTP_OPTIONS(PROTOCOL_METHOD.PUT), body: todoid })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.success) {
+          console.error(response);
+        }
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+    let index = todos.findIndex(todo => todo._id === todoid);
+    todos[index].completed = !todos[index].completed;
+    setTodos([...todos]);
+  }
+
+  const fetchListItems = () => {
+    fetch(`${getDomain()}/getalltodos`, HTTP_OPTIONS(PROTOCOL_METHOD.GET))
+      .then(response => response.json())
+      .then(response => {
+        if (response.success) {
+          setTodos(response.data.dbQueryResult);
+          setInitalFetchComplete(true);
+        }
+      })
+      .catch(error => {
+        console.error("Some error occured", error);
+      });
+  }
+
+  useEffect(fetchListItems, []);
   return (
     <>
       <Title>Axelra Trello Challenge</Title>
-      {response ? <p>{response}</p> : <p>Loading...</p>}
-      <Container>
-        <h1>Heading H1</h1>
-        <h2>Heading H2</h2>
-        <h3>Heading H3</h3>
-        <h4>Heading H4</h4>
-        <h5>Heading H5</h5>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries,{" "}
-        </p>
-        <h2>Colors Palette </h2>
-        <Colors>
-          <Color background={__COLORS.PRIMARY} />
-          <Color background={__COLORS.SECONDARY} />
-          <Color background={__COLORS.TERTRIARY} />
-          <Color background={__COLORS.FOURTH} />
-        </Colors>
-        <h2>Gray Scale</h2>
-        <Colors>
-          <Color background={__GRAY_SCALE._100} />
-          <Color background={__GRAY_SCALE._200} />
-          <Color background={__GRAY_SCALE._300} />
-          <Color background={__GRAY_SCALE._400} />
-          <Color background={__GRAY_SCALE._500} />
-          <Color background={__GRAY_SCALE._600} />
-          <Color background={__GRAY_SCALE._700} />
-          <Color background={__GRAY_SCALE._800} />
-          <Color background={__GRAY_SCALE._900} />
-        </Colors>
-      </Container>
+      {
+        initalFetchComplete ?
+          <div>
+            <Container>
+              <h1>In Progress</h1>
+              <React.Fragment>
+                <TodoList
+                  todos={todos}
+                  toggleTodo={toggleTodo}
+                  deleteTodo={deleteTodo}
+                  changeStatus={changeStatus}
+                  todoscompleted={false}
+                />
+                <AddTodoForm addTodo={addTodo} />
+              </React.Fragment>
+            </Container>
+            <Container>
+              <h1>Done</h1>
+              <React.Fragment>
+                <TodoList
+                  todos={todos}
+                  toggleTodo={toggleTodo}
+                  deleteTodo={deleteTodo}
+                  changeStatus={changeStatus}
+                  todoscompleted={true}
+                />
+              </React.Fragment>
+            </Container>
+          </div> :
+          <p>Loading...</p>
+      }
     </>
   );
 };

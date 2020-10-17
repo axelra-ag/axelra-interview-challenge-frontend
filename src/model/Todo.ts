@@ -1,7 +1,18 @@
 // Example of a simple type
 export type Todo = {
   userId: string;
-  id: number;
+  _id: string;
   title: string;
   completed: boolean;
 };
+
+export type TodoAdd = {
+  userId: string;
+  title: string;
+  completed: boolean;
+};
+
+export type ToggleTodo = (selectedTodo: Todo) => void;
+export type AddTodo = (newTodo: TodoAdd) => void;
+export type DeleteTodo = (todoId: string) => void;
+export type ChangeStatus = (todoId: string) => void;
